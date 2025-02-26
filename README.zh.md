@@ -1,5 +1,7 @@
 # Pixiv Img Deno
 
+[🇬🇧 English](/README.md)
+
 这是一个 Pixiv Img 的加速项目，可部署于 [Deno Playground](https://deno.dev) 上。项目后端的源代码来自 [PixivFE Image Proxy Cloudflare Workers](https://pixivfe-docs.pages.dev/hosting/image-proxy-server/#cloudflare-workers)。
 
 

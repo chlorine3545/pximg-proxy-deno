@@ -1,5 +1,7 @@
 # Pixiv Img Deno
 
+[🇨🇳 简体中文](/README.zh.md)
+
 This is a Pixiv Img acceleration project that can be deployed on [Deno Playground](https://deno.dev). The backend source code comes from [PixivFE Image Proxy Cloudflare Workers](https://pixivfe-docs.pages.dev/hosting/image-proxy-server/#cloudflare-workers).
 
 > [!Warning]
