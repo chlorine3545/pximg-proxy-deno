@@ -27,7 +27,7 @@ async function handleRequest(request: Request): Promise<Response> {
             headers: newHeaders
         });
     } catch (error) {
-        console.error("Failed to fetch Wikipedia image: ", error);
+        console.error("Failed to fetch Pixiv image: ", error);
         return new Response("An error occurred while fetching the Pixiv image.", { status: 500 });
     }
 }
