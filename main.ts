@@ -14,7 +14,7 @@ async function handleRequest(request: Request): Promise<Response> {
         });
 
         if (!response.ok) {
-            return new Response("Error fetching the Wikipedia image.", { status: response.status });
+            return new Response("Error fetching the Pixiv image.", { status: response.status });
         }
 
         // 添加 CORS 头
@@ -28,7 +28,7 @@ async function handleRequest(request: Request): Promise<Response> {
         });
     } catch (error) {
         console.error("Failed to fetch Wikipedia image: ", error);
-        return new Response("An error occurred while fetching the Wikipedia image.", { status: 500 });
+        return new Response("An error occurred while fetching the Pixiv image.", { status: 500 });
     }
 }
 
