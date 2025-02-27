@@ -1,30 +1,36 @@
-import { serve } from "https://deno.land/std@0.192.0/http/server.ts";
-
-serve(async (req: Request) => {
+// 处理来自用户的请求
+async function handleRequest(request: Request): Promise<Response> {
     try {
-        // 用传入请求的 URL 构建 URL 对象，并修改 hostname
-        const url = new URL(req.url);
+        const url = new URL(request.url);
         url.hostname = "i.pximg.net";
 
-        // 基于修改后的 URL 构造新的请求，请求参数使用原请求的配置
-        // 注意：使用 url.toString() 构造新的请求 URL
-        const modifiedRequest = new Request(url.toString(), req);
-
-        // 假装我们是从 Pixiv 发起的请求
+        // 创建修改后的请求
+        const modifiedRequest = new Request(url, request);
         const response = await fetch(modifiedRequest, {
             headers: {
-                "Referer": "https://www.pixiv.net/",
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; rv:122.0) Gecko/20100101 Firefox/122.0"
+                'Referer': 'https://www.pixiv.net',
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.3'
             }
         });
 
         if (!response.ok) {
-            return new Response("Error fetching the resource.", { status: response.status });
+            return new Response("Error fetching the Wikipedia image.", { status: response.status });
         }
 
-        return response;
-    } catch (error: any) {
-        console.error("Failed to fetch resource: ", error.message);
-        return new Response("An error occurred while fetching the resource.", { status: 500 });
+        // 添加 CORS 头
+        const newHeaders = new Headers(response.headers);
+        newHeaders.set('Access-Control-Allow-Origin', '*');
+
+        return new Response(response.body, {
+            status: response.status,
+            statusText: response.statusText,
+            headers: newHeaders
+        });
+    } catch (error) {
+        console.error("Failed to fetch Wikipedia image: ", error);
+        return new Response("An error occurred while fetching the Wikipedia image.", { status: 500 });
     }
-});
+}
+
+// 使用 Deno.serve API 启动服务器
+Deno.serve({ port: 4242 }, handleRequest);
